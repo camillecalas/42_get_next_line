@@ -1,0 +1,82 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_bonus_utils.c                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccalas <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/07 14:09:55 by ccalas            #+#    #+#             */
+/*   Updated: 2021/12/07 14:09:57 by ccalas           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "get_next_line.h"
+
+size_t	ft_strlen(char *s)
+{
+	size_t	i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
+
+char	*ft_strchr(char *str, int c)
+{
+	int	i;
+
+	i = 0;
+	if (!str)
+		return (NULL);
+	while (str[i] != '\0')
+	{
+		if (str[i] == (char) c)
+			return ((char *) str);
+		i++;
+	}
+	return (NULL);
+}
+
+char	*ft_strjoin(char *line_wip, char *buff)
+{
+	char		*dest;
+
+	if (!line_wip)
+	{
+		line_wip = malloc(sizeof(char) * 1);
+		line_wip[0] = '\0';
+	}
+	if (!line_wip || !buff)
+		return (NULL);
+	dest = malloc(sizeof(char) * (ft_strlen(line_wip) + ft_strlen(buff) + 1));
+	if (!dest)
+		return (NULL);
+	dest = ft_strjoin_part2(line_wip, buff, dest);
+	return (dest);
+}
+
+char	*ft_strjoin_part2(char *line_wip, char *buff, char *dest)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	while (line_wip[i] != '\0')
+	{
+		dest[i] = line_wip[i];
+		i++;
+	}
+	while (buff[j] != '\0')
+	{
+		dest[i] = buff[j];
+		i++;
+		j++;
+	}
+	dest[ft_strlen(line_wip) + ft_strlen(buff)] = '\0';
+	free (line_wip);
+	return (dest);
+}
